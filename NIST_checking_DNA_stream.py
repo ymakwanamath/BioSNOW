@@ -1,6 +1,6 @@
 from random import *
 
-from PIL import Image
+
 
 A=0
 C=1
@@ -122,9 +122,9 @@ def keystream_generate(n):
         global T1, T2
         T1=S[192:256]
         T2=S[0:64]
-        FSM_update()
         for i in range(128):
             LFSR_update_function()
+        FSM_update()
         #print("R1")
         #print(R1)
         #print("R2")
@@ -143,9 +143,14 @@ def keystream_generate(n):
 for __ in range(16):
     T1=S[192:256]
     T2=S[0:64]
-    FSM_update()
     for i in range(64):
         LFSR_update_function()
+    FSM_update()
+    if __ ==14:
+        R1= add_list(R1, K[0:64])
+    if __ ==15:
+        R1= add_list(R1, K[64:128])
+
 
 
 #print(S)  
@@ -153,11 +158,11 @@ for __ in range(16):
 #print(R2)
 #print(R3) 
 
-keystream_generate(9000)
+keystream_generate(1000000)
 
 #print(Z)
 cp = [item for sublist in Z for item in sublist]
-print(cp)
+#print(cp)
 #print(cp)
 
 
@@ -183,7 +188,7 @@ def convert_to_binary_and_save(arr, output_file):
 # Input your array here
 input_array=cp
 # Output file path
-output_file_path = '/home/yash/phd/Programs/DNA_Stream_Cipher_Image_crypt/output_binary.txt'
+output_file_path = '/Users/yashmakwana/nist/sts-2.1.2/sts-2.1.2/final_binary1.txt'
 
 # Call the function to convert and save the binary string
 convert_to_binary_and_save(input_array, output_file_path)
