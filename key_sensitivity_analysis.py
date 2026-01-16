@@ -114,9 +114,7 @@ def keystream_generate(n):
         print(R2)
         print("R3")
         print(R3)
-        Z.append(parallel_add(R1,T1))
-        #Z.append(add_list(R1, T1))
-        #Z.append(add_list(parallel_add(R1,T1),R2))
+        Z.append(add_list(parallel_add(R1,T1),R2))
         
 
 def flip_one_bit(arr):
@@ -240,10 +238,15 @@ if __name__== "__main__":
     for __ in range(16):
         T1=S[192:256]
         T2=S[0:64]
-        FSM_update()
+        
         for i in range(64):
             LFSR_update_function()
-        
+        FSM_update()
+        if __ ==14:
+            R1= add_list(R1, K[0:64])
+        if __ ==15:
+            R1= add_list(R1, K[64:128])
+            
     #Keystream generation
       
     keystream_generate(5000)
@@ -296,4 +299,5 @@ if __name__== "__main__":
     print("Avalanche effect is ")
     print(hd/lenarr1)
     
+
     
