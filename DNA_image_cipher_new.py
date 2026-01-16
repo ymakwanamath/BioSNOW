@@ -122,9 +122,10 @@ def keystream_generate(n):
         global T1, T2
         T1=S[192:256]
         T2=S[0:64]
-        FSM_update()
+        
         for i in range(128):
             LFSR_update_function()
+        FSM_update()
         #print("R1")
         #print(R1)
         #print("R2")
@@ -140,12 +141,18 @@ def keystream_generate(n):
     #LFSR_update_function()
     #print("after 1 iterations")
     #print(S)
+
 for __ in range(16):
     T1=S[192:256]
     T2=S[0:64]
-    FSM_update()
+    
     for i in range(64):
         LFSR_update_function()
+    FSM_update()
+    if __ ==14:
+        R1= add_list(R1, K[0:64])
+    if __ ==15:
+        R1= add_list(R1, K[64:128])
 
 
 #print(S)  
@@ -153,7 +160,7 @@ for __ in range(16):
 #print(R2)
 #print(R3) 
 
-keystream_generate(9000)
+keystream_generate(9800000)
 
 #print(Z)
 cp = [item for sublist in Z for item in sublist]
@@ -250,14 +257,14 @@ def encrypt_image(image_path, output_path, cp):
 
 
 # Replace 'input_image.jpg' with your input image file path
-input_image = 'input_image.jpg'
+input_image = 'high_res.jpg'
 
 # Replace 'output_image_encrypted.jpg' with your desired output image file path
-output_image = 'encrypted_image_cat.png'
+output_image = 'high_res_encrypted.png'
 
 # Encryption value - you can change this value as per your encryption method
 #encryption_value = 200
-decrypted_image='decrypted_image_cat.png'
+decrypted_image='high_res_decrypted.jpg'
 # Encrypt the image
 encrypt_image(input_image, output_image, cp)
 print(f'Image encrypted and saved to {output_image}')
